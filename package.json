@@ -1,0 +1,22 @@
+{
+  "name": "reverse_proxy",
+  "version": "1.0.0",
+  "description": "BPT Reverse Proxy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js",
+    "build:mbt" : "mbt build --mtar proxy",
+    "deploy" : "cf deploy mta_archives/proxy.mtar",
+    "rimraf" : "rimraf mta_archives/proxy.mtar",
+    "build:deploy" : "npm run rimraf && npm i && npm run build:mbt && npm run deploy"
+  },
+  "author": "External",
+  "license": "ISC",
+  "dependencies": {
+    "@sap/approuter": "^23.0.0"
+  },
+  "devDependencies": {
+    "mbt": "^1.2.49",
+    "rimraf": "^6.1.3"
+  }
+}

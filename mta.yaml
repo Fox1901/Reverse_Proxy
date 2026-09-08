@@ -1,0 +1,46 @@
+_schema-version: "3.2"
+ID: reverse-proxy
+version: 0.0.1
+
+modules:
+  - name: reverse-proxy  
+    type: javascript.nodejs
+    path: .   # Only for use in mta.yml
+    parameters:
+      disk-quota: 512MB
+      memory: 512MB
+      command: npm run start
+      routes:
+        - route: reverse-proxy.${default-domain}
+    requires:
+      - name: reverse-proxy-xsuaa
+        parameters:
+          service-key:
+            name: reverse-proxy-xsuaa-key
+      - name: reverse-proxy-destination
+      - name: reverse-proxy-connectivity
+        parameters:
+          content-target: true
+resources:
+  - name: reverse-proxy-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      serrvice-name: reverse-proxy-destination
+      service-plan: lite
+    
+  - name: reverse-proxy-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-name: reverse-proxy-connectivity
+      service-plan: lite
+
+  - name: reverse-proxy-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-name: reverse-proxy-xsuaa
+      service-plan: application
+ 

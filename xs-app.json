@@ -1,0 +1,20 @@
+{
+    "authenticationMethod": "route",
+    "routes": [
+        {
+            "source": "/dummy",
+            "target": "index.html",
+            "authenticationType": "none",
+            "localDir": "local",
+            "csrfProtection": false
+
+        },
+        {
+            "source": "^(.*)", 
+            "target": "/$1",
+            "authenticationType": "none",
+            "destination": "destinationDemo",
+            "csrfProtection": false
+        }
+    ]
+}
